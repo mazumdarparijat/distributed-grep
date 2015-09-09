@@ -1,3 +1,5 @@
+package cs425.mp1;
+
 import java.io.*;
 import java.net.Socket;
 
