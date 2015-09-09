@@ -4,34 +4,26 @@ public class regexMatcher {
     private String pattern;
     private PrintWriter out;
     private BufferedReader logReader;
-    private static final String fname="/Users/parijatmazumdar/Desktop/CS425Project/DistributedGrep/src/test/test.log";
 
-    public regexMatcher(String pattern, PrintWriter output) {
+    public regexMatcher(String pattern, String fname, PrintWriter output) throws FileNotFoundException {
         this.pattern=pattern;
         out=output;
-        try {
-            logReader=new BufferedReader(new FileReader(fname));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        logReader=new BufferedReader(new FileReader(fname));
+
     }
 
-    public void printMatchingLines() {
+    public void printMatchingLines() throws IOException {
         String line;
         System.out.println("[RegexMatcher] pattern : "+pattern);
-        try {
-            while ((line=logReader.readLine())!=null) {
-                System.out.print("[RegexMatcher] line : "+line+".... ");
-                if (line.matches(pattern)) {
-                    System.out.println("Match!!");
-                    out.println(line);
-                }
-                else {
-                    System.out.println("No Match!!");
-                }
+        while ((line=logReader.readLine())!=null) {
+            System.out.print("[RegexMatcher] line : "+line+".... ");
+            if (line.matches(pattern)) {
+                System.out.println("Match!!");
+                out.println(line);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            else {
+                System.out.println("No Match!!");
+            }
         }
     }
 }
