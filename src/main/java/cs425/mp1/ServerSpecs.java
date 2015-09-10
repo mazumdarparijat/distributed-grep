@@ -1,3 +1,5 @@
+package cs425.mp1;
+
 /**
  * Created by parijatmazumdar on 08/09/15.
  */

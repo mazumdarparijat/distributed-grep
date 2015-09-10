@@ -1,5 +1,6 @@
-import java.io.*;
+package cs425.mp1;
 
+import java.io.*;
 public class regexMatcher {
     private String pattern;
     private PrintWriter out;
