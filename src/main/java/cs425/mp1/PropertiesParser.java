@@ -1,5 +1,6 @@
 package cs425.mp1;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,27 +11,23 @@ import java.util.Properties;
  * Created by parijatmazumdar on 09/09/15.
  */
 public class PropertiesParser {
-    private static final String PROP_FILENAME="config.properties";
-    private PropertiesParser() {}
+    private final String PROP_FILENAME;
+    private PropertiesParser(String propFileName) {
+        PROP_FILENAME=propFileName;
+    }
 
-    private static PropertiesParser singleton=null;
-
-    public static PropertiesParser getParserInstance() {
-        if (PropertiesParser.singleton==null) {
-            PropertiesParser.singleton=new PropertiesParser();
-        }
-
-        return PropertiesParser.singleton;
+    public static PropertiesParser getParserInstance(String configFileName) {
+        return new PropertiesParser(configFileName);
     }
 
     public ArrayList<ServerSpecs> getServerSpecs() throws IOException {
         Properties pr=new Properties();
-        InputStream in=getClass().getClassLoader().getResourceAsStream(PropertiesParser.PROP_FILENAME);
+        InputStream in=new FileInputStream(PROP_FILENAME);
         if (in!=null) {
             pr.load(in);
         }
         else {
-            throw new FileNotFoundException("Resource file " + PropertiesParser.PROP_FILENAME
+            throw new FileNotFoundException("Resource file " + this.PROP_FILENAME
                     + "not found in classpath");
         }
 

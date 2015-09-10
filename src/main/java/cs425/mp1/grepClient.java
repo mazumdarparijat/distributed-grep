@@ -1,4 +1,7 @@
-import com.sun.corba.se.spi.activation.Server;
+package cs425.mp1;
+
+import cs425.mp1.PropertiesParser;
+import cs425.mp1.ServerSpecs;
 
 import java.io.*;
 import java.net.Socket;
@@ -8,11 +11,11 @@ public class grepClient {
 
     private static class grepClientThread extends Thread {
         ServerSpecs server_;
-        String regexString_;
+        grepQuery query_;
 
-        public grepClientThread(ServerSpecs server, String regexString) {
+        public grepClientThread(ServerSpecs server, grepQuery query) {
             server_=server;
-            regexString_=regexString;
+            query_=query;
         }
 
         @Override
@@ -36,12 +39,12 @@ public class grepClient {
                 e.printStackTrace();
             }
 
-            System.out.println("Client Socket created!");
-            outputWriter.println(regexString_);
+            System.out.println("Client Socket created!" + query_.serialize());
+            outputWriter.println(query_.serialize());
             outputWriter.println(server_.logFilePath);
             outputWriter.flush();
-            System.out.println("regexString passed " + regexString_);
-            System.out.println("logFile passed " + regexString_);
+//            System.out.println("regexString passed " + regexString_);
+//            System.out.println("logFile passed " + regexString_);
             String response;
             try {
                 while ((response=inputReader.readLine())!=null) {
@@ -53,20 +56,25 @@ public class grepClient {
         }
     }
 
-    public static void main(String [] args) {
-        if ((args.length != 1)) throw new AssertionError("Expecting 1 argument. Received " + args.length);
-        String regexString=args[0];
+    private final String configFileName;
+    private grepClient(String configFile) {
+        configFileName=configFile;
+    }
 
+    public static grepClient getNewInstance(String configFile) {
+        return new grepClient(configFile);
+    }
+    public void executeGrep(grepQuery query) {
         ArrayList<ServerSpecs> servers=null;
         try {
-            servers=PropertiesParser.getParserInstance().getServerSpecs();
+            servers= PropertiesParser.getParserInstance(configFileName).getServerSpecs();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         ArrayList<grepClientThread> threads=new ArrayList<grepClientThread>(servers.size());
         for (ServerSpecs s : servers) {
-            grepClientThread gT = new grepClientThread(s,regexString);
+            grepClientThread gT = new grepClientThread(s,query);
             threads.add(gT);
             gT.start();
         }

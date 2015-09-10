@@ -3,7 +3,7 @@ package cs425.mp1;
 /**
  * Created by parijatmazumdar on 08/09/15.
  */
-public class ServerSpecs {
+class ServerSpecs {
     public final String serverAddress;
     public final int serverPort;
     public final String logFilePath;
