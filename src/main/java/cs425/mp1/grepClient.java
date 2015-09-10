@@ -39,7 +39,7 @@ public class grepClient {
                 e.printStackTrace();
             }
 
-            System.out.println("Client Socket created!" + query_.serialize());
+            System.out.println("[Client Debug Message] Client Socket created!");
             outputWriter.println(query_.serialize());
             outputWriter.println(server_.logFilePath);
             outputWriter.flush();

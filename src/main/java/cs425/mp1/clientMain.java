@@ -40,6 +40,27 @@ public class clientMain {
             else {
                 configFileName=line.getOptionValue("configFile");
                 String queryString=line.getOptionValue("regex");
+
+                if (line.hasOption("w")) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("\\b");
+                    sb.append(queryString);
+                    sb.append("\\b");
+                    queryString=sb.toString();
+                }
+
+                if (line.hasOption("x")) {
+                    StringBuilder sb = new StringBuilder();
+                    if (queryString.charAt(0)!='^')
+                        sb.append('^');
+                    sb.append(queryString);
+
+                    if (queryString.charAt(queryString.length()-1)!='$')
+                        sb.append('$');
+
+                    queryString=sb.toString();
+                }
+
                 boolean ignoreCase=false;
                 boolean invertMatch=false;
                 boolean printLineNumbers=false;
@@ -59,6 +80,8 @@ public class clientMain {
             Option v = new Option("v","grep option to invert match");
             Option i = new Option("i", "grep option to ignore case");
             Option n = new Option("n","grep option to print line numbers");
+            Option w = new Option("w","grep option to match only whole words");
+            Option x = new Option("x","grep option to match whole sentence only");
             Option configFile = OptionBuilder.withArgName("file").hasArg().withDescription("*Required Option* configuration file")
                     .create("configFile");
             Option regex = OptionBuilder.withArgName("regexString").hasArg().withDescription("*Required Option* grep string")
@@ -69,6 +92,8 @@ public class clientMain {
             op.addOption(v);
             op.addOption(i);
             op.addOption(n);
+            op.addOption(w);
+            op.addOption(x);
             op.addOption(configFile);
             op.addOption(regex);
             return op;
