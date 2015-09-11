@@ -38,11 +38,11 @@ public class regexMatcher {
             if (p.matcher(line).find()) {
 //                System.out.println("Match!!");
                 if (!pattern.invertMatch)
-                    out.println("["+requestServerAddress+"] : "+printLine+line);
+                    out.println(printLine+line);
             }
             else {
                 if (pattern.invertMatch)
-                    out.println("["+requestServerAddress+"] : "+printLine+line);
+                    out.println(printLine+line);
 //                System.out.println("No Match!!");
             }
         }

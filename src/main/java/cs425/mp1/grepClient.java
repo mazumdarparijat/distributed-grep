@@ -47,7 +47,7 @@ public class grepClient {
             String response;
             try {
                 while ((response=inputReader.readLine())!=null) {
-                    grepClient.out.println(response);
+                    grepClient.out.println("["+server_.serverAddress+"]:"+response);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
