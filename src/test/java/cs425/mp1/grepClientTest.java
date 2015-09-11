@@ -36,7 +36,7 @@ public class grepClientTest {
 		p.flush();
 		String[] olines = out.toString().split("\n");
 		Arrays.sort(olines, new LineCompare());
-		Scanner sc = new Scanner(new File("/Users/agupta/Documents/cs425/mp1-distributed-logging/src/main/resources/sample.log"));
+		Scanner sc = new Scanner(new File("/home/agupta80/mp1-distributed-logging/src/test/resources/sample.log"));
 		List<String> lines = new ArrayList<String>();
 		while (sc.hasNextLine()) {
 		  lines.add(sc.nextLine());
