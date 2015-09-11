@@ -7,12 +7,12 @@
     <groupId>distributed.grep.serverClient</groupId>
     <artifactId>grepServerClient</artifactId>
     <version>1.0</version>
-	
 	<build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
         <configuration>
           <archive>
             <manifest>
@@ -23,7 +23,6 @@
       </plugin>
     </plugins>
   </build>
-
     <dependencies>
     	<dependency>
     		<groupId>junit</groupId>
