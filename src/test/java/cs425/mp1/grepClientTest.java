@@ -28,7 +28,7 @@ public class grepClientTest {
 	}
 	@Test
 	public void test() throws IOException {
-		String [] args = {"-configFile", "/Users/agupta/Documents/cs425/mp1-distributed-logging/src/main/resources/config.properties", "-regex", "this"};
+		String [] args = {"-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties", "-regex", "this"};
 		FormatCommandLineInputs format = new FormatCommandLineInputs(args);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintStream p = new PrintStream(out);
