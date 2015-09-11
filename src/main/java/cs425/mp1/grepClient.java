@@ -6,6 +6,7 @@ import cs425.mp1.ServerSpecs;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class grepClient {
 
@@ -19,9 +20,11 @@ public class grepClient {
 
         @Override
         public void run() {
+        	int localLcount=0;
             Socket socket=null;
             try {
                 socket = new Socket(server_.serverAddress, server_.serverPort);
+                socket.setSoTimeout(2000);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -48,22 +51,27 @@ public class grepClient {
             try {
                 while ((response=inputReader.readLine())!=null) {
                     grepClient.out.println("["+server_.serverAddress+"]:"+response);
+                    localLcount++;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                totalLcount.addAndGet(localLcount);
             }
         }
     }
 
     private final String configFileName;
     public static PrintStream out;
+    public static AtomicInteger totalLcount;
     private grepClient(String configFile) {
         configFileName=configFile;
         out=System.out;
+        totalLcount=new AtomicInteger(0);
     }
     private grepClient(String configFile, PrintStream p) {
         configFileName=configFile;
         out=p;
+        totalLcount=new AtomicInteger(0);
     }
     public static grepClient getNewInstance(String configFile) {
         return new grepClient(configFile);
@@ -92,6 +100,8 @@ public class grepClient {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }finally{
+        	System.out.println("Total line(s) : "+totalLcount);
         }
     }
 }
