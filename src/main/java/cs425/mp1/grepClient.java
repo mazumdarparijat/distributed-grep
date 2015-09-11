@@ -12,7 +12,6 @@ public class grepClient {
     private static class grepClientThread extends Thread {
         ServerSpecs server_;
         grepQuery query_;
-
         public grepClientThread(ServerSpecs server, grepQuery query) {
             server_=server;
             query_=query;
@@ -48,7 +47,7 @@ public class grepClient {
             String response;
             try {
                 while ((response=inputReader.readLine())!=null) {
-                    System.out.println(response);
+                    grepClient.out.println(response);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -57,12 +56,20 @@ public class grepClient {
     }
 
     private final String configFileName;
+    public static PrintStream out;
     private grepClient(String configFile) {
         configFileName=configFile;
+        out=System.out;
     }
-
+    private grepClient(String configFile, PrintStream p) {
+        configFileName=configFile;
+        out=p;
+    }
     public static grepClient getNewInstance(String configFile) {
         return new grepClient(configFile);
+    }
+    public static grepClient getNewInstance(String configFile, PrintStream p) {
+        return new grepClient(configFile,p);
     }
     public void executeGrep(grepQuery query) {
         ArrayList<ServerSpecs> servers=null;

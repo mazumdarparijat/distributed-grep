@@ -7,7 +7,7 @@ import org.apache.commons.cli.*;
  */
 public class clientMain {
 
-    private static class FormatCommandLineInputs {
+    public static class FormatCommandLineInputs {
         public final String configFileName;
         public final grepQuery query;
 
