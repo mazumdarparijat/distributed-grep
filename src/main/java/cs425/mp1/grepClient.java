@@ -57,6 +57,7 @@ public class grepClient {
                 e.printStackTrace();
                 totalLcount.addAndGet(localLcount);
             }
+            totalLcount.addAndGet(localLcount);
         }
     }
 
