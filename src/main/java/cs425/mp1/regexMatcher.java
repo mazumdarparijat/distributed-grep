@@ -34,7 +34,7 @@ public class regexMatcher {
         while ((line=logReader.readLine())!=null) {
             counter++;
 //            System.out.print("[RegexMatcher] line : "+line+".... ");
-            String printLine=(pattern.printLineNumbers) ? String.valueOf(counter)+":" : "";
+            String printLine=(pattern.printLineNumbers) ?String.valueOf(counter)+":": "";
             if (p.matcher(line).find()) {
 //                System.out.println("Match!!");
                 if (!pattern.invertMatch)
