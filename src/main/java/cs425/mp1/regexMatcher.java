@@ -34,7 +34,7 @@ public class regexMatcher {
 			p = Pattern.compile(pattern.queryPattern);
 
 		int counter = 0;
-		LineIterator it = FileUtils.lineIterator(logFile, "UTF-8");
+		LineIterator it = FileUtils.lineIterator(logFile,"ASCII");
 		try {
 			while (it.hasNext()) {
 				line = it.nextLine();
