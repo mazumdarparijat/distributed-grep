@@ -42,7 +42,7 @@ public class grepClient {
                 e.printStackTrace();
             }
 
-            System.out.println("[Client Debug Message] Client Socket created!");
+            //System.out.println("[Client Debug Message] Client Socket created!");
             outputWriter.println(query_.serialize());
             outputWriter.println(server_.logFilePath);
             outputWriter.flush();
@@ -51,7 +51,8 @@ public class grepClient {
             String response;
             try {
                 while ((response=inputReader.readLine())!=null) {
-                    grepClient.out.println("["+server_.serverAddress+"]:"+response);
+                   // grepClient.out.println("["+server_.serverAddress+"]:"+response);
+                	grepClient.out.println(response);
                     localLcount++;
                 }
             } catch (IOException e) {
