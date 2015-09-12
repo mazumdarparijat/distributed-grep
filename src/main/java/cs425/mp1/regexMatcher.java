@@ -1,9 +1,10 @@
 package cs425.mp1;
 
 import java.io.*;
+import java.util.Scanner;
 import java.util.regex.Pattern;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
+
+import org.apache.commons.cli.ParseException;
 
 public class regexMatcher {
 	private grepQuery pattern;
@@ -24,7 +25,7 @@ public class regexMatcher {
 		return new regexMatcher(pattern, fname, output, sourceID);
 	}
 
-	public void printMatchingLines() throws IOException {
+	public void printMatchingLines() {
 		String line;
 		// System.out.println("[RegexMatcher] pattern : "+pattern);
 		Pattern p;
@@ -34,11 +35,12 @@ public class regexMatcher {
 			p = Pattern.compile(pattern.queryPattern);
 
 		int counter = 0;
-		LineIterator it = FileUtils.lineIterator(logFile,"ASCII");
-		try {
-			while (it.hasNext()) {
-				line = it.nextLine();
-				counter++;
+		try{
+			Scanner scanner = new Scanner(logFile);
+			scanner.useDelimiter("\n");
+			while (scanner.hasNext()) {
+			    line = scanner.next();
+			    counter++;
 				// System.out.print("[RegexMatcher] line : "+line+".... ");
 				String printLine = (pattern.printLineNumbers) ? String.valueOf(counter) + ":" : "";
 				if (p.matcher(line).find()) {
@@ -51,8 +53,8 @@ public class regexMatcher {
 					// System.out.println("No Match!!");
 				}
 			}
-		} finally {
-			LineIterator.closeQuietly(it);
-		}
+		}catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 }
