@@ -43,6 +43,8 @@ public class grepClientTest {
 		p.flush();
 		String[] olines = out.toString().split("\n");
 		Arrays.sort(olines, new LineCompare());
+		System.out.println("Output Lines");
+		System.out.println(olines);
 		for(int i=0;i<olines.length;i++){
 			olines[i] = removeServerInfo(olines[i]);
 		}
@@ -55,6 +57,8 @@ public class grepClientTest {
 		sc.close();
 		String[] elines = lines.toArray(new String[0]);
 		Arrays.sort(elines, new LineCompare());
+		System.out.println("Expected Lines");
+		System.out.println(olines);
 		for(int i=0;i<elines.length;i++){
 			elines[i] = removeServerInfo(elines[i]);
 		}
