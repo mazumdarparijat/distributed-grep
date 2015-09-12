@@ -27,6 +27,7 @@ public class grepClient {
                 socket.setSoTimeout(2000);
             } catch (IOException e) {
                 e.printStackTrace();
+                System.err.println("Can't Connect to server " +server_.serverAddress);
             }
             BufferedReader inputReader = null;
             try {
@@ -56,6 +57,7 @@ public class grepClient {
             } catch (IOException e) {
                 e.printStackTrace();
                 totalLcount.addAndGet(localLcount);
+                System.err.println("Lines from server " +server_.serverAddress + " are incomplete");
             }
             totalLcount.addAndGet(localLcount);
         }
