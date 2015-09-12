@@ -1,7 +1,6 @@
 package cs425.mp1;
 
 import org.apache.commons.cli.*;
-
 /**
  * Created by parijatmazumdar on 09/09/15.
  */
