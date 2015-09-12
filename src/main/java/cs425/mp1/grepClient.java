@@ -26,39 +26,37 @@ public class grepClient {
                 socket = new Socket(server_.serverAddress, server_.serverPort);
                 socket.setSoTimeout(2000);
             } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Can't Connect to server " +server_.serverAddress);
+                System.err.println("[ERROR] Can't Connect to server " + server_.serverAddress);
+                return;
             }
             BufferedReader inputReader = null;
             try {
                 inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR] Error creating input stream from socket at client side");
+                return;
             }
             PrintWriter outputWriter = null;
             try {
                 outputWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR] Error creating input stream from socket at client side");
+                return;
             }
 
-            //System.out.println("[Client Debug Message] Client Socket created!");
             outputWriter.println(query_.serialize());
             outputWriter.println(server_.logFilePath);
             outputWriter.flush();
-//            System.out.println("regexString passed " + regexString_);
-//            System.out.println("logFile passed " + regexString_);
             String response;
             try {
                 while ((response=inputReader.readLine())!=null) {
-                   // grepClient.out.println("["+server_.serverAddress+"]:"+response);
-                	grepClient.out.println(response);
+                    grepClient.out.println("["+server_.serverAddress+"]:"+response);
                     localLcount++;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
                 totalLcount.addAndGet(localLcount);
-                System.err.println("Lines from server " +server_.serverAddress + " are incomplete");
+                System.err.println("[ERROR] Lines from server " + server_.serverAddress + " are incomplete");
+                return;
             }
             totalLcount.addAndGet(localLcount);
         }
@@ -88,7 +86,7 @@ public class grepClient {
         try {
             servers= PropertiesParser.getParserInstance(configFileName).getServerSpecs();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("[ERROR] Error parsing properties file");
         }
 
         ArrayList<grepClientThread> threads=new ArrayList<grepClientThread>(servers.size());
@@ -103,7 +101,7 @@ public class grepClient {
                 g.join();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.err.println("[ERROR] Client's main thread interrupted while waiting for daemons to complete.");
         }finally{
         	System.out.println("Total line(s) : "+totalLcount);
         }

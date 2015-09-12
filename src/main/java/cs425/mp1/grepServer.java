@@ -36,12 +36,10 @@ public class grepServer {
 
                 // client sends regex as 1st line
                 String serializedRegex = input.readLine();
-                System.out.println("[Server] regex received : " + serializedRegex);
                 regex = grepQuery.deserialize(serializedRegex);
 
                 // client sends log file path as 2nd line
                 logFilePath =input.readLine();
-                System.out.println("[Server] log path received : " + logFilePath);
             } catch (IOException e) {
                 closeSocket();
                 e.printStackTrace();
