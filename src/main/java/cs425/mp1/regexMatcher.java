@@ -25,7 +25,7 @@ public class regexMatcher {
 		return new regexMatcher(pattern, fname, output, sourceID);
 	}
 
-	public void printMatchingLines() {
+	public void printMatchingLines() throws IOException {
 		String line;
 		// System.out.println("[RegexMatcher] pattern : "+pattern);
 		Pattern p;
@@ -35,26 +35,22 @@ public class regexMatcher {
 			p = Pattern.compile(pattern.queryPattern);
 
 		int counter = 0;
-		try{
-			Scanner scanner = new Scanner(logFile);
-			scanner.useDelimiter("\n");
-			while (scanner.hasNext()) {
-			    line = scanner.next();
-			    counter++;
-				// System.out.print("[RegexMatcher] line : "+line+".... ");
-				String printLine = (pattern.printLineNumbers) ? String.valueOf(counter) + ":" : "";
-				if (p.matcher(line).find()) {
-					// System.out.println("Match!!");
-					if (!pattern.invertMatch)
-						out.println(printLine + line);
-				} else {
-					if (pattern.invertMatch)
-						out.println(printLine + line);
-					// System.out.println("No Match!!");
-				}
+		Scanner scanner = new Scanner(logFile);
+		scanner.useDelimiter("\n");
+		while (scanner.hasNext()) {
+		    line = scanner.next();
+		    counter++;
+			// System.out.print("[RegexMatcher] line : "+line+".... ");
+			String printLine = (pattern.printLineNumbers) ? String.valueOf(counter) + ":" : "";
+			if (p.matcher(line).find()) {
+				// System.out.println("Match!!");
+				if (!pattern.invertMatch)
+					out.println(printLine + line);
+			} else {
+				if (pattern.invertMatch)
+					out.println(printLine + line);
+				// System.out.println("No Match!!");
 			}
-		}catch (IOException e) {
-            e.printStackTrace();
-        }
+		}
 	}
 }
