@@ -234,7 +234,10 @@ public class grepClientTest {
 		PrintStream p = new PrintStream(out);
 		grepClient.getNewInstance(format.configFileName, p).executeGrep(format.query);
 		p.flush();
-		String[] olines = out.toString().split("\n");
+		String[] olines=new String[0];
+		if (!out.toString().isEmpty()) 
+			olines = out.toString().split("\n");
+
 		Arrays.sort(olines, new LineCompare());
 		System.out.println("Output Lines");
 		for(int i=0;i<olines.length;i++){
