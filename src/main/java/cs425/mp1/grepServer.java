@@ -8,10 +8,8 @@ import java.net.Socket;
 public class grepServer {
     private static class grepServerThread extends Thread {
         Socket socket_;
-        String serverAddress_;
-        public grepServerThread(Socket socket, String serverAddress) {
+        public grepServerThread(Socket socket) {
             socket_=socket;
-            serverAddress_=serverAddress;
         }
 
         private void closeSocket() {
@@ -47,7 +45,7 @@ public class grepServer {
 
             regexMatcher gL = null;
             try {
-                gL = regexMatcher.getNewInstance(regex,logFilePath,output,serverAddress_);
+                gL = regexMatcher.getNewInstance(regex,logFilePath,output);
             } catch (FileNotFoundException e) {
                 closeSocket();
                 e.printStackTrace();
@@ -89,7 +87,7 @@ public class grepServer {
         while (true) {
             grepServerThread gS=null;
             try {
-                gS = new grepServerThread(mainThread.accept(),mainThread.getInetAddress().toString());
+                gS = new grepServerThread(mainThread.accept());
             } catch (IOException e) {
                 e.printStackTrace();
             }
