@@ -1,15 +1,22 @@
 package cs425.mp1;
 
 import org.apache.commons.cli.*;
+
 /**
- * Created by parijatmazumdar on 09/09/15.
+ * Main class for launching client
  */
 public class clientMain {
 
+    /**
+     * Formats commandline inputs and flags
+     */
     public static class FormatCommandLineInputs {
         public final String configFileName;
         public final grepQuery query;
 
+        /**
+         * @param args commandline arguments
+         */
         public FormatCommandLineInputs(String [] args) {
             Options op=createOptions();
             CommandLineParser parser=new DefaultParser();
@@ -74,6 +81,9 @@ public class clientMain {
             }
         }
 
+        /** Creates the required options to look for in cmdline arguments
+         * @return Options object
+         */
         private Options createOptions() {
             Option help = new Option("help","print this help message");
             Option v = new Option("v","grep option to invert match");
@@ -98,6 +108,9 @@ public class clientMain {
             return op;
         }
 
+        /** print helper for usage
+         * @param op options
+         */
         private void printHelp(Options op) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("distributedGrep",op);

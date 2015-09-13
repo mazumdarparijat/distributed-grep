@@ -1,7 +1,7 @@
 package cs425.mp1;
 
 /**
- * Created by parijatmazumdar on 09/09/15.
+ * main class for launching server
  */
 public class serverMain {
 

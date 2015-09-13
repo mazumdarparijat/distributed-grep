@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by parijatmazumdar on 10/09/15.
+ * class for storing the query pattern for grep along with options
  */
 class grepQuery {
     public final String queryPattern;
@@ -13,6 +13,12 @@ class grepQuery {
     public final boolean invertMatch;
     public final boolean printLineNumbers;
 
+    /** Constructor
+     * @param queryPattern
+     * @param ignoreCase
+     * @param invertMatch
+     * @param printLineNumbers
+     */
     public grepQuery(String queryPattern,boolean ignoreCase,boolean invertMatch,boolean printLineNumbers) {
         this.queryPattern=queryPattern;
         this.ignoreCase=ignoreCase;
@@ -20,6 +26,9 @@ class grepQuery {
         this.printLineNumbers=printLineNumbers;
     }
 
+    /** Serialize class to string - used in passing class object over socket
+     * @return Class serialized to string
+     */
     public String serialize() {
         int opts=(ignoreCase) ? 1<<2 : 0;
         opts += (invertMatch ? 1<<1 : 0);
@@ -35,6 +44,11 @@ class grepQuery {
         return sb.toString();
     }
 
+    /** Deserialize serialized class object
+     * @param serializedGrepQuery serialized class object
+     * @return object of this class
+     * @throws IOException
+     */
     public static grepQuery deserialize(String serializedGrepQuery) throws IOException {
         Pattern p=Pattern.compile("<pattern>(.*)</pattern>");
         Matcher m=p.matcher(serializedGrepQuery);

@@ -9,11 +9,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Class implementing client for distributed grep. Multithreaded, establishes socket connection with
+ * servers. One server per thread.
+ */
 public class grepClient {
 
+    /**
+     * client thread to fetch matching lines from server and keep line count
+     */
     private static class grepClientThread extends Thread {
         ServerSpecs server_;
         grepQuery query_;
+
+        /** Constructor
+         * @param server server to connect to
+         * @param query query to send
+         */
         public grepClientThread(ServerSpecs server, grepQuery query) {
             server_=server;
             query_=query;
@@ -60,22 +72,46 @@ public class grepClient {
     private final String configFileName;
     public static PrintStream out;
     public static AtomicInteger totalLcount;
+
+    /** Constructor
+     * @param configFile configuration file name
+     */
     private grepClient(String configFile) {
         configFileName=configFile;
         out=System.out;
         totalLcount=new AtomicInteger(0);
     }
+
+    /** Constructor
+     * @param configFile configuration file name
+     * @param p output stream
+     */
     private grepClient(String configFile, PrintStream p) {
         configFileName=configFile;
         out=p;
         totalLcount=new AtomicInteger(0);
     }
+
+    /** create new instance
+     * @param configFile configuration file name
+     * @return object of this class
+     */
     public static grepClient getNewInstance(String configFile) {
         return new grepClient(configFile);
     }
+
+    /** create new instance with output stream specified
+     * @param configFile configuration file name
+     * @param p
+     * @return
+     */
     public static grepClient getNewInstance(String configFile, PrintStream p) {
         return new grepClient(configFile,p);
     }
+
+    /** communicate with servers to get matching lines
+     * @param query query object to send
+     */
     public void executeGrep(grepQuery query) {
         ArrayList<ServerSpecs> servers=null;
         try {

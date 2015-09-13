@@ -17,7 +17,13 @@ import org.junit.Test;
 
 import cs425.mp1.clientMain.FormatCommandLineInputs;
 
+/**
+ * distributed unit testing class
+ */
 public class grepClientTest {
+	/**
+	 * custom comparator
+	 */
 	public class LineCompare implements Comparator<String> {
 		public int compare(String s1, String s2) {
 			String subs1 = s1.substring(0, s1.indexOf(':'));
@@ -27,11 +33,18 @@ public class grepClientTest {
 
 	}
 
+	/** helper to remove server name to enable matching with expected value
+	 * @param s line from which server info has to be removed
+	 * @return line w/o server info
+	 */
 	public String removeServerInfo(String s) {
 		int idx = s.indexOf(':');
 		return s.substring(idx + 1);
 	}
 
+	/** simple pattern test
+	 * @throws IOException
+	 */
 	@Test
 	public void testNormalPattern() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -64,6 +77,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for ignore case switch
+	 * @throws IOException
+	 */
 	@Test
 	public void testIgnoreCase() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -96,6 +113,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for -w switch
+	 * @throws IOException
+	 */
 	@Test
 	public void testWordMatch() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -128,6 +149,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for simple regex
+	 * @throws IOException
+	 */
 	@Test
 	public void testRegex() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -160,6 +185,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for complex regex with -w flag
+	 * @throws IOException
+	 */
 	@Test
 	public void testWordMatchRegex() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -192,6 +221,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for -x flag
+	 * @throws IOException
+	 */
 	@Test
 	public void testSentenceMatch() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
@@ -224,6 +257,10 @@ public class grepClientTest {
 		}
 		assertArrayEquals(elines, olines);
 	}
+
+	/** test for -v flag
+	 * @throws IOException
+	 */
 	@Test
 	public void testInvertMatch() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",

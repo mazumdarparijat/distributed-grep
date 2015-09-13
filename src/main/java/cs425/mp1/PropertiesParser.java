@@ -8,18 +8,30 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 /**
- * Created by parijatmazumdar on 09/09/15.
+ * Parse properties file
  */
 public class PropertiesParser {
     private final String PROP_FILENAME;
+
+    /** Constructor
+     * @param propFileName
+     */
     private PropertiesParser(String propFileName) {
         PROP_FILENAME=propFileName;
     }
 
+    /** get new parser instance
+     * @param configFileName
+     * @return
+     */
     public static PropertiesParser getParserInstance(String configFileName) {
         return new PropertiesParser(configFileName);
     }
 
+    /** read config file and populates server specifications
+     * @return array of server specifications
+     * @throws IOException
+     */
     public ArrayList<ServerSpecs> getServerSpecs() throws IOException {
         Properties pr=new Properties();
         InputStream in=new FileInputStream(PROP_FILENAME);

@@ -5,13 +5,22 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * class implementing server serving grep requests. multithreaded.
+ */
 public class grepServer {
+    /**
+     * server thread handling one client
+     */
     private static class grepServerThread extends Thread {
         Socket socket_;
         public grepServerThread(Socket socket) {
             socket_=socket;
         }
 
+        /**
+         * helper function to close socket
+         */
         private void closeSocket() {
             try {
                 socket_.close();
@@ -65,14 +74,25 @@ public class grepServer {
     }
 
     private final int portNumber;
+
+    /** Constructor
+     * @param port port number to bind to
+     */
     private grepServer(int port) {
         portNumber=port;
     }
 
+    /** get new server instance
+     * @param port
+     * @return
+     */
     public static grepServer getNewInstance(int port) {
         return new grepServer(port);
     }
 
+    /**
+     * accept incoming connections and spawn new thread for each request
+     */
     public void runServer() {
         ServerSocket mainThread= null;
         try {
