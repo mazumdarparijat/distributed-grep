@@ -22,11 +22,11 @@ The fault tolerance guarantee of the system is that it fetches answers from all 
 ## Instructions
 ### Step 1 - Run all servers
 - grep-server has to be run in all machines containing required log files. The following are the steps to run server in one machine :
-1. ssh into the vm machine : Eg - ```ssh <NETID>@fa15-cs425-gNN-XX.cs.illinois.edu```
-2. Type ```git clone https://gitlab-beta.engr.illinois.edu/cs425-agupta80-pmazmdr2/mp1-distributed-logging.git```
-3. cd into the project root directory
-4. run ```mvn -DskipTests package```. You should see build success.
-5. Type ```cd ./scripts/ && ./run_server <PORT_NUMBER_XX>```
+    1. ssh into the vm machine : Eg - ```ssh <NETID>@fa15-cs425-gNN-XX.cs.illinois.edu```
+    2. Type ```git clone https://gitlab-beta.engr.illinois.edu/cs425-agupta80-pmazmdr2/mp1-distributed-logging.git```
+    3. cd into the project root directory
+    4. run ```mvn -DskipTests package```. You should see build success.
+    5. Type ```cd ./scripts/ && ./run_server <PORT_NUMBER_XX>```
 
 ### Step 2 - Populate cofiguration file
 The configuration file has 3 lines : serverAddress, serverPort and logFilePath. This file stores 
