@@ -196,7 +196,7 @@ public class grepClientTest {
 	@Test
 	public void testSentenceMatch() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
-				"-regex", "piweba3y.prodigy.com - - \[02/Sep/1995:15:37:13 -0400\]", "-n", "-x" };
+				"-regex", "piweba3y.prodigy.com - -", "-n", "-x" };
 		FormatCommandLineInputs format = new FormatCommandLineInputs(args);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintStream p = new PrintStream(out);
