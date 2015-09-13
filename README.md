@@ -28,7 +28,7 @@ grep-server has to be run in all machines containing required log files. The fol
 4. run ```mvn -DskipTests package```. You should see build success.
 5. Type ```cd ./scripts/ && ./run_server <PORT_NUMBER_XX>```
 
-### Step 2 - Populate cofiguration file
+### Step 2 - Populate configuration file
 The configuration file has 3 lines : serverAddress, serverPort and logFilePath. This file stores 
 the server address (fa15-cs425-gNN-XX.cs.illinois.edu), server port (same as <PORT_NUMBER_XX> in step 1.5) and 
 filepath of the log file for all the machines. Refer to  ```./src/main/resources/config.properties``` for 
