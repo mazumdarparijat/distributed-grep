@@ -16,17 +16,17 @@ Multithreaded client and multithreaded server not only ensure faster execution d
 The fault tolerance guarantee of the system is that it fetches answers from all machines that have not failed.
  
 ## Package Dependencies
-    - Java 7
-    - Maven
+- Java 7
+- Maven
 
 ## Instructions
 ### Step 1 - Run all servers
 - grep-server has to be run in all machines containing required log files. The following are the steps to run server in one machine :
-    1. ssh into the vm machine : Eg - ```ssh <NETID>@fa15-cs425-gNN-XX.cs.illinois.edu```
-    2. Type ```git clone https://gitlab-beta.engr.illinois.edu/cs425-agupta80-pmazmdr2/mp1-distributed-logging.git```
-    3. cd into the project root directory
-    4. run ```mvn -DskipTests package```. You should see build success.
-    5. Type ```cd ./scripts/ && ./run_server <PORT_NUMBER_XX>```
+1. ssh into the vm machine : Eg - ```ssh <NETID>@fa15-cs425-gNN-XX.cs.illinois.edu```
+2. Type ```git clone https://gitlab-beta.engr.illinois.edu/cs425-agupta80-pmazmdr2/mp1-distributed-logging.git```
+3. cd into the project root directory
+4. run ```mvn -DskipTests package```. You should see build success.
+5. Type ```cd ./scripts/ && ./run_server <PORT_NUMBER_XX>```
 
 ### Step 2 - Populate cofiguration file
 The configuration file has 3 lines : serverAddress, serverPort and logFilePath. This file stores 
@@ -42,5 +42,5 @@ running unittest. This can be done by running ```mvn test``` in project root dir
 grep-client takes grep query and grep matching control options from user. The configuration file path 
 (populated in step 2) and the grep query string are required arguments, other switches are optional. The help 
 switch shows usage instructions.
-    1. ```cd ./scripts/```
-    2. ```run_client -help```
+1. ```cd ./scripts/```
+2. ```run_client -help```
