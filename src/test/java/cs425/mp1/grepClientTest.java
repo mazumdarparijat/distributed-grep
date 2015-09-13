@@ -18,7 +18,6 @@ import cs425.mp1.clientMain.FormatCommandLineInputs;
 
 public class grepClientTest {
 	public class LineCompare implements Comparator<String> {
-		@Override
 		public int compare(String s1, String s2) {
 			String subs1 = s1.substring(0, s1.indexOf(':'));
 			String subs2 = s2.substring(0, s1.indexOf(':'));
