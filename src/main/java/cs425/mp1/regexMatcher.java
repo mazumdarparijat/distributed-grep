@@ -9,14 +9,14 @@ import org.apache.commons.cli.ParseException;
 public class regexMatcher {
 	private grepQuery pattern;
 	private final PrintWriter out;
-	private final File logFile;
+	private final String logFile;
 	private final String requestServerAddress;
 
 	private regexMatcher(grepQuery pattern, String fname, PrintWriter output, String serverAddress)
 			throws FileNotFoundException {
 		this.pattern = pattern;
 		out = output;
-		logFile = new File(fname);
+		logFile = fname;
 		this.requestServerAddress = serverAddress;
 	}
 
@@ -35,7 +35,7 @@ public class regexMatcher {
 			p = Pattern.compile(pattern.queryPattern);
 
 		int counter = 0;
-		Scanner scanner = new Scanner(logFile);
+		Scanner scanner = new Scanner(new FileReader(logFile));
 		scanner.useDelimiter("\n");
 		while (scanner.hasNext()) {
 		    line = scanner.next();

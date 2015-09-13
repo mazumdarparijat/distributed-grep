@@ -6,6 +6,7 @@ import cs425.mp1.ServerSpecs;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class grepClient {
@@ -29,9 +30,10 @@ public class grepClient {
                 System.err.println("[ERROR] Can't Connect to server " + server_.serverAddress);
                 return;
             }
-            BufferedReader inputReader = null;
+            Scanner inputReader = null;
             try {
-                inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                inputReader = new Scanner(new InputStreamReader(socket.getInputStream()));
+                inputReader.useDelimiter("\n");
             } catch (IOException e) {
                 System.err.println("[ERROR] Error creating input stream from socket at client side");
                 return;
@@ -47,16 +49,9 @@ public class grepClient {
             outputWriter.println(query_.serialize());
             outputWriter.println(server_.logFilePath);
             outputWriter.flush();
-            String response;
-            try {
-                while ((response=inputReader.readLine())!=null) {
-                    grepClient.out.println("["+server_.serverAddress+"]:"+response);
-                    localLcount++;
-                }
-            } catch (IOException e) {
-                totalLcount.addAndGet(localLcount);
-                System.err.println("[ERROR] Lines from server " + server_.serverAddress + " are incomplete");
-                return;
+            while (inputReader.hasNext()) {
+                grepClient.out.println("["+server_.serverAddress+"]:"+inputReader.next());
+                localLcount++;
             }
             totalLcount.addAndGet(localLcount);
         }
