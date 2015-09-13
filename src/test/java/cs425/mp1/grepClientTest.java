@@ -33,9 +33,9 @@ public class grepClientTest {
 	}
 
 	@Test
-	public void test() throws IOException {
+	public void testPattern() throws IOException {
 		String[] args = { "-configFile", "/home/agupta80/mp1-distributed-logging/src/test/resources/config.properties",
-				"-regex", "this" };
+				"-regex", "22:34:29", "-n" };
 		FormatCommandLineInputs format = new FormatCommandLineInputs(args);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintStream p = new PrintStream(out);
@@ -43,10 +43,12 @@ public class grepClientTest {
 		p.flush();
 		String[] olines = out.toString().split("\n");
 		Arrays.sort(olines, new LineCompare());
+		System.out.println("Output Lines");
 		for(int i=0;i<olines.length;i++){
+			System.out.println(olines[i]);
 			olines[i] = removeServerInfo(olines[i]);
 		}
-		Scanner sc = new Scanner(new File("/home/agupta80/mp1-distributed-logging/src/test/resources/sample.log"));
+		Scanner sc = new Scanner(new File("/home/agupta80/mp1-distributed-logging/src/test/resources/test-output-1.log"));
 		sc.useDelimiter("\n");
 		List<String> lines = new ArrayList<String>();
 		while (sc.hasNextLine()) {
@@ -55,6 +57,11 @@ public class grepClientTest {
 		sc.close();
 		String[] elines = lines.toArray(new String[0]);
 		Arrays.sort(elines, new LineCompare());
+		System.out.println("Expected Lines");
+		for(int i=0;i<elines.length;i++){
+			System.out.println(elines[i]);
+			elines[i] = removeServerInfo(elines[i]);
+		}
 		assertArrayEquals(elines, olines);
 	}
 }
